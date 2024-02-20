@@ -28,7 +28,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f0xx_it.h"
+#include "stm32f0xx.h"
 
 /** @addtogroup Template_Project
   * @{

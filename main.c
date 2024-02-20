@@ -12,7 +12,7 @@
 #include "main.h"
 
 /* Public variables ----------------------------------------------------------*/
-uint32_t SysTime = 0;
+uint64_t SysTime = 0;
 extern uint32_t Image$$INIT_TBL$$Base;
 extern uint32_t Image$$INIT_TBL$$Limit;
 extern uint32_t Image$$PROC_TBL$$Base;
@@ -53,7 +53,7 @@ int main(void)
              proc_fnc ++ )
         {
             (*proc_fnc)();
-        }        
+        }
     }
 }
 

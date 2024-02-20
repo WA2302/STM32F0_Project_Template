@@ -17,6 +17,21 @@
 static CTimer runTimer(500);
 
 /* Private functions ---------------------------------------------------------*/
+#define GPO_H(x,n) GPIO##x->BSRR = GPIO_Pin_##n; 
+#define GPO_L(x,n) GPIO##x->BRR  = GPIO_Pin_##n;                    
+#define GPO_Z(x,n) \
+	if( GPIO##x->ODR & GPIO_Pin_##n )   GPIO##x->BRR  = GPIO_Pin_##n; \
+	else                         		GPIO##x->BSRR = GPIO_Pin_##n;  
+
+#define GPI_X(x,n) ( GPIO##x->IDR & GPIO_Pin_##n )
+
+
+
+#define RED_ON() 		GPO_H(B,1)
+#define RED_OFF() 		GPO_L(B,1)
+
+#define RED_BLING() 	GPO_Z(B,1)
+
 
 /**
   * @brief  App init program
@@ -25,7 +40,19 @@ static CTimer runTimer(500);
   */
 INIT_REG_LEVEL_3(Demo1_init)
 {
-    /* Replace your code with this line. */
+    GPIO_InitTypeDef GPIO_InitStructure;
+
+    /* Enable GPIO clocks */
+    RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB, ENABLE);
+
+    /* LED GPIO Configuration ------------------------------------------------*/
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_1 ;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;/* Only in OUT/AF mode */
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;  /* Only in OUT/AF mode */
+    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL; /* Weak in OUT/AF mode */
+
+    GPIO_Init(GPIOB , &GPIO_InitStructure);
 
     return 0;
 }
@@ -39,7 +66,7 @@ PROCESS_REG(Demo1_process)
 {
     if(runTimer.TimeOut())
     {
-        // do sth each 500ms.
+        RED_BLING();
     }    
 }
 

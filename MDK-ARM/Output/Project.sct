@@ -10,14 +10,14 @@ LR_IROM1 0x08000000 0x00100000  {    ; load region size_region
    .ANY (+XO)
   }
   INIT_TBL +0 {
-    .ANY (_init_leve.0)
-    .ANY (_init_leve.1)
-    .ANY (_init_leve.2)
-    .ANY (_init_leve.3)
-    .ANY (_init_leve.4)
-    .ANY (_init_leve.5)
-    .ANY (_init_leve.6)
-    .ANY (_init_leve.7)
+    .ANY (_init_level.0)
+    .ANY (_init_level.1)
+    .ANY (_init_level.2)
+    .ANY (_init_level.3)
+    .ANY (_init_level.4)
+    .ANY (_init_level.5)
+    .ANY (_init_level.6)
+    .ANY (_init_level.7)
   }
   PROC_TBL +0 {
     .ANY (_process)
